@@ -44,3 +44,18 @@ function loadGraphics() {
         renderingContext.fillText("Flappy Turkey", 300, 75);
     }
 }
+
+function Sprite(url, pos, size, speed, frames, dir, once) {
+    this.pos = pos;
+    this.size = size;
+    this.speed = typeof speed === 'number' ? speed : 0;
+    this.frames = frames;
+    this._index = 0;
+    this.url = url;
+    this.dir = dir || 'horizontal';
+    this.once = once;
+};
+var player = {
+    pos: [0, 0],
+    sprite: new Sprite('img/turkey.png', [0, 0], [39, 39], 16, [0, 1])
+};
