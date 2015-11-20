@@ -8,7 +8,9 @@ var
     bottomObstacleSprite,
     topObstacleSprite,
     splashScreenSprite,
+    gameoverSprite,
     textSprites,
+    titleSprite,
     okButtonSprite;
 
 
@@ -35,8 +37,12 @@ function initSprites(img) {
     ];
     //backgroundSprite.color = "#ABE1EE";
     backgroundSprite = new Sprite(img, 67, 0, 300, 246);
-    foregroundSprite = new Sprite(img, 67, 246, 299, 13);
-    okButtonSprite = new Sprite(img, 0, 95, 64, 51);
+    foregroundSprite = new Sprite(img, 67, 341, 299, 35);
+    okButtonSprite = new Sprite(img, 0, 199, 64, 51);
+    titleSprite = new Sprite(img, 100, 260, 228, 30);
+    topObstacleSprite = new Sprite(img, 402, 0, 36, 218);
+    bottomObstacleSprite = new Sprite(img, 460, 0, 36, 218);
+    gameoverSprite = new Sprite(img, 119, 295, 174, 47);
 
     textSprites = {
         floppyTurkey: new Sprite(img, 59, 114, 96, 22),
