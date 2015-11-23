@@ -38,10 +38,10 @@ function initSprites(img) {
     //backgroundSprite.color = "#ABE1EE";
     backgroundSprite = new Sprite(img, 67, 0, 300, 246);
     foregroundSprite = new Sprite(img, 67, 341, 299, 35);
-    okButtonSprite = new Sprite(img, 0, 199, 64, 51);
+    okButtonSprite = new Sprite(img, 158, 399, 116, 32);
     titleSprite = new Sprite(img, 100, 260, 228, 30);
-    topObstacleSprite = new Sprite(img, 402, 0, 36, 218);
-    bottomObstacleSprite = new Sprite(img, 460, 0, 36, 218);
+    bottomObstacleSprite = new Sprite(img, 376, 0, 49, 218);
+    topObstacleSprite = new Sprite(img, 436, 0, 49, 218);
     gameoverSprite = new Sprite(img, 119, 295, 174, 47);
 
     textSprites = {
