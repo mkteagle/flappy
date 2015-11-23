@@ -7,11 +7,11 @@ var
     foregroundSprite,
     bottomObstacleSprite,
     topObstacleSprite,
-    splashScreenSprite,
     gameoverSprite,
     textSprites,
     titleSprite,
-    okButtonSprite;
+    okButtonSprite,
+    overOKSprite;
 
 
 // sprite constructor
@@ -43,10 +43,12 @@ function initSprites(img) {
     bottomObstacleSprite = new Sprite(img, 376, 0, 49, 218);
     topObstacleSprite = new Sprite(img, 436, 0, 49, 218);
     gameoverSprite = new Sprite(img, 119, 295, 174, 47);
+    overOKSprite = new Sprite(img, 415, 255, 48, 21);
 
     textSprites = {
         floppyTurkey: new Sprite(img, 59, 114, 96, 22),
         gameOver: new Sprite(img, 59, 136, 94, 19),
         getReady: new Sprite(img, 59, 155, 87, 22)
+
     };
 }

@@ -173,7 +173,7 @@ function onpress(evt) {
             if (okButton.x < mouseX && mouseX < okButton.x + okButton.width &&
                 okButton.y < mouseY && mouseY < okButton.y + okButton.height
             ) {
-                //corals.reset();
+                forks.reset();
                 currentState = states.Splash;
                 score = 0;
             }
@@ -395,6 +395,9 @@ function render() {
         renderingContext.fillText("" + score, 520, 85);
     }
     if (currentState == states.Score) {
-        gameoverSprite.draw(renderingContext, 90, 100);
+        gameoverSprite.draw(renderingContext, 110, 110);
+        overOKSprite.draw(renderingContext, 200, 300);
+        renderingContext.fillText("Score: " + score, 209, 225);
+        renderingContext.fillText("Best: " + score, 200, 260);
     }
 }
