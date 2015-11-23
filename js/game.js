@@ -193,7 +193,7 @@ function windowSetup() {
  */
 function canvasSetup() {
     canvas = document.createElement("canvas");
-    canvas.style.border = "15px solid #382b1d";
+    canvas.style.border = "15px solid #FF9B34";
 
     canvas.width = width;
     canvas.height = height;
@@ -248,7 +248,6 @@ function gameLoop() {
     render();
     window.requestAnimationFrame(gameLoop);
 }
-
 /**
  * Updates all moving sprites: foreground, turkey, and corals
  */
@@ -262,6 +261,95 @@ function update() {
     turkey.update();
 }
 
+function ForkCollection() {
+    this._forks = [];
+
+    /**
+     * Empty corals array
+     */
+    this.reset = function () {
+        this._forks = [];
+    };
+
+    /**
+     * Creates and adds a new Coral to the game.
+     */
+    this.add = function () {
+        this._forks.push(new Fork()); // Create and push coral to array
+    };
+
+    /**
+     * Update the position of existing corals and add new corals when necessary.
+     */
+    this.update = function () {
+        if (frames % 100 === 0) { // Add a new coral to the game every 100 frames.
+            this.add();
+        }
+
+        for (var i = 0, len = this._forks.length; i < len; i++) { // Iterate through the array of corals and update each.
+            var fork = this._forks[i]; // The current coral.
+
+            if (i === 0) { // If this is the leftmost coral, it is the only coral that the fish can collide with . . .
+                fork.detectCollision(); // . . . so, determine if the fish has collided with this leftmost coral.
+            }
+
+            fork.x -= 2; // Each frame, move each coral two pixels to the left. Higher/lower values change the movement speed.
+            if (fork.x < -fork.width) { // If the coral has moved off screen . . .
+                this._forks.splice(i, 1); // . . . remove it.
+                i--;
+                len--;
+            }
+        }
+    };
+
+    /**
+     * Draw all corals to canvas context.
+     */
+    this.draw = function () {
+        for (var i = 0, len = this._forks.length; i < len; i++) {
+            var fork = this._forks[i];
+            fork.draw();
+        }
+    };
+}
+
+/**
+ * The Coral class. Creates instances of Coral.
+ */
+function Fork() {
+    this.x = 500;
+    this.y = height - (bottomObstacleSprite.height + foregroundSprite.height + 120 + 200 * Math.random());
+    this.width = bottomObstacleSprite.width;
+    this.height = bottomObstacleSprite.height;
+
+    /**
+     * Determines if the fish has collided with the Coral.
+     * Calculates x/y difference and use normal vector length calculation to determine
+     */
+    this.detectCollision = function () {
+// intersection
+        var cx = Math.min(Math.max(turkey.x, this.x), this.x + this.width);
+        var cy1 = Math.min(Math.max(turkey.y, this.y), this.y + this.height);
+        var cy2 = Math.min(Math.max(turkey.y, this.y + this.height + 80), this.y + 2 * this.height + 80);
+// Closest difference
+        var dx = turkey.x - cx;
+        var dy1 = turkey.y - cy1;
+        var dy2 = turkey.y - cy2;
+// Vector length
+        var d1 = dx * dx + dy1 * dy1;
+        var d2 = dx * dx + dy2 * dy2;
+        var r = turkey.radius * turkey.radius;
+// Determine intersection
+        if (r > d1 || r > d2) {
+            currentState = states.Score;
+        }
+    };
+
+    this.draw = function () {
+        bottomObstacleSprite.draw(renderingContext, this.x, this.y);
+        topObstacleSprite.draw(renderingContext, this.x, this.y + 80 + this.height);
+    }
+}
 /**
  * Re-draw the game view.
  */
