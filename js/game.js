@@ -24,7 +24,7 @@ var
         Score: 2
     };
 
-
+localStorage.setItem("bestScore", 0);
 /**
  * turkey class. Creates instances of turkey.
  * @constructor
@@ -259,18 +259,18 @@ function ForkCollection() {
         }
 
         for (var i = 0, len = this._forks.length; i < len; i++) { // Iterate through the array of corals and update each.
-            var fork = this._forks[i]; // The current coral.
+            var fork = this._forks[i]; // The current fork.
 
             if (i === 0) { // If this is the leftmost coral, it is the only coral that the fish can collide with . . .
-                fork.detectCollision(); // . . . so, determine if the fish has collided with this leftmost coral.
+                fork.detectCollision(); // . . . so, determine if the fish has collided with this leftmost fork.
             }
 
-            fork.x -= 2; // Each frame, move each coral two pixels to the left. Higher/lower values change the movement speed.
+            fork.x -= 2; // Each frame, move each fork two pixels to the left. Higher/lower values change the movement speed.
             if (fork.x < -fork.width) { // If the coral has moved off screen . . .
                 this._forks.splice(i, 1); // . . . remove it.
                 i--;
                 len--;
-            }
+            } // if turkey has reached it past the fork than increment score.
             if (fork.x - 10 == turkey.x) {
                 score++;
             }
@@ -395,9 +395,12 @@ function render() {
         renderingContext.fillText("" + score, 520, 85);
     }
     if (currentState == states.Score) {
+        if (score > localStorage.bestScore) {
+            localStorage.setItem("bestScore", score);
+        }
         gameoverSprite.draw(renderingContext, 110, 110);
         overOKSprite.draw(renderingContext, 200, 300);
         renderingContext.fillText("Score: " + score, 209, 225);
-        renderingContext.fillText("Best: " + score, 200, 260);
+        renderingContext.fillText("Best: " + localStorage.bestScore, 200, 260);
     }
 }
