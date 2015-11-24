@@ -196,6 +196,11 @@ function windowSetup() {
         height = 500;
         inputEvent = "mousedown";
     }
+    if (width < 600) {
+        width = 300;
+        height = 500;
+        inputEvent = "mousedown";
+    }
 
     // Create a listener on the input event.
     document.addEventListener(inputEvent, onpress);
